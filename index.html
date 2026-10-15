@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aprenda Plano Cartesiano de forma divertida com o Dino Runner! Site educativo interativo para crianças.">
+  <title>Dino Runner — Aprenda Plano Cartesiano</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Progress Navigation -->
+  <nav id="progress-nav" aria-label="Navegação por seções">
+    <div class="nav-logo">🦕</div>
+    <div class="nav-dots">
+      <button class="nav-dot active" data-section="hero" title="Início"></button>
+      <button class="nav-dot" data-section="explanation" title="Plano Cartesiano"></button>
+      <button class="nav-dot" data-section="interactive-stage" title="Palco Interativo"></button>
+      <button class="nav-dot" data-section="jump-demo" title="Pulo do Dino"></button>
+      <button class="nav-dot" data-section="tree-movement" title="Movimento da Árvore"></button>
+      <button class="nav-dot" data-section="time-control" title="Tempo"></button>
+      <button class="nav-dot" data-section="position-challenge" title="Desafio de Posição"></button>
+      <button class="nav-dot" data-section="tree-challenge" title="Desafio da Árvore"></button>
+      <button class="nav-dot" data-section="scratch-section" title="Scratch"></button>
+      <button class="nav-dot" data-section="mini-game" title="Mini Jogo"></button>
+      <button class="nav-dot" data-section="summary" title="Resumo"></button>
+    </div>
+    <button id="sound-toggle" class="neo-btn-icon" title="Ativar/Desativar som">🔊</button>
+  </nav>
+
+  <main>
+
+    <!-- ==================== SECTION 1: HERO ==================== -->
+    <section id="hero" class="section">
+      <div class="hero-container">
+        <div class="hero-badge neo-card">🎮 Jogo Educativo</div>
+        <h1 class="hero-title">
+          <span class="hero-title-line">Plano Cartesiano</span>
+          <span class="hero-title-line accent">com Dino Runner</span>
+        </h1>
+        <p class="hero-subtitle">
+          Descubra como o Dino usa <strong>X</strong> e <strong>Y</strong> para se movimentar pelo cenário.
+        </p>
+        <div class="hero-dino-container">
+          <canvas id="hero-dino-canvas" width="280" height="200"></canvas>
+        </div>
+        <button id="btn-start" class="neo-btn neo-btn-lg" onclick="scrollToSection('explanation')">
+          🚀 Começar a aprender
+        </button>
+        <div class="hero-hints">
+          <span class="hint-tag neo-tag">X = Esquerda ↔ Direita</span>
+          <span class="hint-tag neo-tag">Y = Cima ↕ Baixo</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 2: EXPLANATION ==================== -->
+    <section id="explanation" class="section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-number neo-tag">01</span>
+          <h2>O que é o Plano Cartesiano?</h2>
+        </div>
+        <div class="explanation-grid">
+          <div class="explanation-text">
+            <div class="neo-card explanation-card">
+              <p class="text-lg">O plano cartesiano é formado por dois eixos:</p>
+              <div class="axis-labels">
+                <div class="axis-label neo-card-accent" style="--accent: var(--pink)">
+                  <span class="axis-icon">↔</span>
+                  <strong>Eixo X</strong> — Horizontal (esquerda e direita)
+                </div>
+                <div class="axis-label neo-card-accent" style="--accent: var(--blue)">
+                  <span class="axis-icon">↕</span>
+                  <strong>Eixo Y</strong> — Vertical (cima e baixo)
+                </div>
+              </div>
+              <div class="origin-box neo-card-inner">
+                <strong>Origem = (0, 0)</strong>
+                <p>O ponto onde os dois eixos se cruzam</p>
+              </div>
+            </div>
+            <div class="neo-card rules-card">
+              <h3>Como funciona?</h3>
+              <ul class="rules-list">
+                <li><span class="rule-arrow">→</span> Aumentar X = objeto vai para a <strong>direita</strong></li>
+                <li><span class="rule-arrow">←</span> Diminuir X = objeto vai para a <strong>esquerda</strong></li>
+                <li><span class="rule-arrow">↑</span> Aumentar Y = objeto <strong>sobe</strong></li>
+                <li><span class="rule-arrow">↓</span> Diminuir Y = objeto <strong>desce</strong></li>
+              </ul>
+            </div>
+          </div>
+          <div class="explanation-canvas-wrap">
+            <div class="canvas-container neo-card">
+              <canvas id="explanation-canvas"></canvas>
+            </div>
+            <div class="example-coords">
+              <button class="neo-btn neo-btn-sm coord-example" data-x="-100" data-y="0">(-100, 0)</button>
+              <button class="neo-btn neo-btn-sm coord-example" data-x="100" data-y="0">(100, 0)</button>
+              <button class="neo-btn neo-btn-sm coord-example" data-x="0" data-y="150">(0, 150)</button>
+              <button class="neo-btn neo-btn-sm coord-example" data-x="0" data-y="-150">(0, -150)</button>
+            </div>
+          </div>
+        </div>
+        <button class="neo-btn section-next" onclick="scrollToSection('interactive-stage')">
+          Próximo: Palco Interativo →
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 3: INTERACTIVE STAGE ==================== -->
+    <section id="interactive-stage" class="section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-number neo-tag">02</span>
+          <h2>Palco Interativo</h2>
+        </div>
+        <p class="section-desc">Veja o Dino e a árvore no plano cartesiano, como no palco do Scratch!</p>
+        <div class="stage-layout">
+          <div class="canvas-container neo-card stage-canvas-wrap">
+            <canvas id="stage-canvas"></canvas>
+          </div>
+          <div class="stage-info">
+            <div class="coord-panel neo-card" id="stage-dino-panel">
+              <div class="coord-panel-icon">🦕</div>
+              <div class="coord-panel-label">Dino</div>
+              <div class="coord-panel-values">
+                <span class="coord-x">X = <strong id="stage-dino-x">-210</strong></span>
+                <span class="coord-y">Y = <strong id="stage-dino-y">0</strong></span>
+              </div>
+            </div>
+            <div class="coord-panel neo-card" id="stage-tree-panel">
+              <div class="coord-panel-icon">🌲</div>
+              <div class="coord-panel-label">Árvore</div>
+              <div class="coord-panel-values">
+                <span class="coord-x">X = <strong id="stage-tree-x">180</strong></span>
+                <span class="coord-y">Y = <strong id="stage-tree-y">0</strong></span>
+              </div>
+            </div>
+            <div class="neo-card tip-card">
+              <p>💡 <strong>Dica:</strong> O Dino está à esquerda (X negativo) e a árvore à direita (X positivo). Ambos estão no chão (Y = 0).</p>
+            </div>
+          </div>
+        </div>
+        <button class="neo-btn section-next" onclick="scrollToSection('jump-demo')">
+          Próximo: Pulo do Dino →
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 4: JUMP DEMO ==================== -->
+    <section id="jump-demo" class="section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-number neo-tag">03</span>
+          <h2>Demonstração do Pulo</h2>
+        </div>
+        <p class="section-desc">Perceba: durante o pulo, o Dino muda principalmente sua posição <strong>Y</strong>.</p>
+        <div class="jump-layout">
+          <div class="canvas-container neo-card">
+            <canvas id="jump-canvas"></canvas>
+          </div>
+          <div class="jump-info">
+            <div class="coord-panel neo-card coord-panel-lg" id="jump-coord-panel">
+              <div class="coord-panel-label">Posição atual</div>
+              <div class="coord-panel-big">
+                (<span id="jump-x">-210</span> , <span id="jump-y">0</span>)
+              </div>
+            </div>
+            <div class="jump-trajectory neo-card">
+              <h3>Trajetória do Y</h3>
+              <div class="trajectory-values" id="trajectory-values">
+                <span class="traj-val" data-step="0">Y = 0</span>
+                <span class="traj-val" data-step="1">Y = 50</span>
+                <span class="traj-val" data-step="2">Y = 100</span>
+              </div>
+            </div>
+            <div class="jump-controls">
+              <button id="btn-jump" class="neo-btn neo-btn-accent">🦘 Fazer o Dino pular</button>
+              <button id="btn-jump-reset" class="neo-btn">↺ Reiniciar</button>
+            </div>
+          </div>
+        </div>
+        <button class="neo-btn section-next" onclick="scrollToSection('tree-movement')">
+          Próximo: Movimento da Árvore →
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 5: TREE MOVEMENT ==================== -->
+    <section id="tree-movement" class="section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-number neo-tag">04</span>
+          <h2>Movimentação da Árvore</h2>
+        </div>
+        <p class="section-desc">A árvore está mudando seu <strong>X</strong>. Por isso ela se movimenta da direita para a esquerda.</p>
+        <div class="tree-layout">
+          <div class="canvas-container neo-card">
+            <canvas id="tree-canvas"></canvas>
+          </div>
+          <div class="tree-info">
+            <div class="coord-panel neo-card coord-panel-lg">
+              <div class="coord-panel-icon">🌲</div>
+              <div class="coord-panel-label">Posição da Árvore</div>
+              <div class="coord-panel-big">
+                X = <span id="tree-move-x">180</span> | Y = <span id="tree-move-y">0</span>
+              </div>
+            </div>
+            <div class="speed-controls neo-card">
+              <h3>Velocidade</h3>
+              <div class="speed-buttons">
+                <button class="neo-btn speed-btn" data-speed="slow">🐢 Lento</button>
+                <button class="neo-btn speed-btn active" data-speed="normal">🐇 Normal</button>
+                <button class="neo-btn speed-btn" data-speed="fast">⚡ Rápido</button>
+              </div>
+            </div>
+            <div class="tree-controls">
+              <button id="btn-tree-play" class="neo-btn neo-btn-accent">▶ Iniciar</button>
+              <button id="btn-tree-pause" class="neo-btn">⏸ Pausar</button>
+              <button id="btn-tree-reset" class="neo-btn">↺ Reiniciar</button>
+            </div>
+          </div>
+        </div>
+        <button class="neo-btn section-next" onclick="scrollToSection('time-control')">
+          Próximo: Controle de Tempo →
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 6: TIME CONTROL ==================== -->
+    <section id="time-control" class="section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-number neo-tag">05</span>
+          <h2>Posição ao longo do Tempo</h2>
+        </div>
+        <p class="section-desc">A cada instante, o objeto possui uma coordenada diferente.</p>
+        <div class="time-layout">
+          <div class="canvas-container neo-card">
+            <canvas id="time-canvas"></canvas>
+          </div>
+          <div class="timeline-panel neo-card">
+            <h3>📍 Posição da Árvore</h3>
+            <div class="timeline-grid">
+              <div class="timeline-item" data-time="0"><span class="time-label">0s</span><span class="time-arrow">→</span><span class="time-value">X = 180</span></div>
+              <div class="timeline-item" data-time="1"><span class="time-label">1s</span><span class="time-arrow">→</span><span class="time-value">X = 90</span></div>
+              <div class="timeline-item" data-time="2"><span class="time-label">2s</span><span class="time-arrow">→</span><span class="time-value">X = 0</span></div>
+              <div class="timeline-item" data-time="3"><span class="time-label">3s</span><span class="time-arrow">→</span><span class="time-value">X = -90</span></div>
+              <div class="timeline-item" data-time="4"><span class="time-label">4s</span><span class="time-arrow">→</span><span class="time-value">X = -180</span></div>
+            </div>
+            <div class="time-counter neo-card-inner">
+              Tempo: <strong id="time-counter-value">0s</strong>
+            </div>
+            <button id="btn-time-play" class="neo-btn neo-btn-accent">▶ Animar Linha do Tempo</button>
+          </div>
+        </div>
+        <button class="neo-btn section-next" onclick="scrollToSection('position-challenge')">
+          Próximo: Desafio! →
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 7: POSITION CHALLENGE ==================== -->
+    <section id="position-challenge" class="section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-number neo-tag">06</span>
+          <h2>🎯 Desafio: Onde o Dino deve estar?</h2>
+        </div>
+        <div class="challenge-layout">
+          <div class="challenge-target neo-card">
+            <p>Clique no plano para colocar o Dino na posição:</p>
+            <div class="challenge-coords" id="challenge-target-coords">(80, 120)</div>
+            <div class="challenge-score">
+              Acertos: <strong id="challenge-score">0</strong> / <strong id="challenge-total">5</strong>
+            </div>
+          </div>
+          <div class="canvas-container neo-card challenge-canvas-wrap">
+            <canvas id="challenge-canvas"></canvas>
+          </div>
+          <div id="challenge-feedback" class="challenge-feedback neo-card" style="display:none;"></div>
+          <button id="btn-challenge-new" class="neo-btn" style="display:none;">Próximo Desafio →</button>
+        </div>
+        <button class="neo-btn section-next" onclick="scrollToSection('tree-challenge')">
+          Próximo: Desafio da Árvore →
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 8: TREE CHALLENGE ==================== -->
+    <section id="tree-challenge" class="section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-number neo-tag">07</span>
+          <h2>🌲 Desafio da Árvore</h2>
+        </div>
+        <div class="tree-challenge-layout">
+          <div class="challenge-target neo-card">
+            <p>Faça a árvore chegar até:</p>
+            <div class="challenge-coords" id="tree-challenge-target">X = -150</div>
+          </div>
+          <div class="canvas-container neo-card">
+            <canvas id="tree-challenge-canvas"></canvas>
+          </div>
+          <div class="slider-control neo-card">
+            <label for="tree-slider">Controle a posição X da árvore:</label>
+            <input type="range" id="tree-slider" min="-240" max="240" value="180" class="neo-slider">
+            <div class="coord-panel-big slider-value">
+              Árvore: X = <span id="tree-slider-value">180</span> | Y = 0
+            </div>
+          </div>
+          <div id="tree-challenge-feedback" class="challenge-feedback neo-card" style="display:none;"></div>
+          <button id="btn-tree-challenge-check" class="neo-btn neo-btn-accent">✅ Verificar Posição</button>
+        </div>
+        <button class="neo-btn section-next" onclick="scrollToSection('scratch-section')">
+          Próximo: Conexão com Scratch →
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 9: SCRATCH CONNECTION ==================== -->
+    <section id="scratch-section" class="section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-number neo-tag">08</span>
+          <h2>🐱 Conexão com o Scratch</h2>
+        </div>
+        <p class="section-desc">No Scratch, os personagens também utilizam coordenadas X e Y para saber onde estão.</p>
+        <div class="scratch-layout">
+          <div class="scratch-blocks neo-card">
+            <h3>Blocos do Scratch</h3>
+            <div class="scratch-block block-motion">
+              <span class="block-icon">🔵</span>
+              mude x por <span class="block-value">-10</span>
+            </div>
+            <div class="scratch-block block-motion">
+              <span class="block-icon">🔵</span>
+              mude y por <span class="block-value">10</span>
+            </div>
+            <div class="scratch-block block-motion">
+              <span class="block-icon">🔵</span>
+              vá para x: <span class="block-value">-150</span> y: <span class="block-value">0</span>
+            </div>
+            <div class="scratch-block block-sensing">
+              <span class="block-icon">🟡</span>
+              se tocar na <span class="block-value">árvore</span> então...
+            </div>
+          </div>
+          <div class="scratch-comparison neo-card">
+            <h3>Comparação</h3>
+            <div class="comparison-grid">
+              <div class="comparison-item neo-card-accent" style="--accent: var(--blue)">
+                <div class="comparison-icon">📐</div>
+                <strong>Plano Cartesiano</strong>
+                <p>Coordenadas X, Y definem posição</p>
+              </div>
+              <div class="comparison-arrow">→</div>
+              <div class="comparison-item neo-card-accent" style="--accent: var(--orange)">
+                <div class="comparison-icon">🐱</div>
+                <strong>Scratch</strong>
+                <p>Blocos usam X e Y para mover sprites</p>
+              </div>
+              <div class="comparison-arrow">→</div>
+              <div class="comparison-item neo-card-accent" style="--accent: var(--green)">
+                <div class="comparison-icon">🦕</div>
+                <strong>Dino Runner</strong>
+                <p>Dino e árvore se movem com X e Y</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="neo-btn section-next" onclick="scrollToSection('mini-game')">
+          Próximo: Mini Jogo! →
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 10: MINI GAME ==================== -->
+    <section id="mini-game" class="section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-number neo-tag">09</span>
+          <h2>🎮 Mini Jogo: Dino Runner</h2>
+        </div>
+        <p class="section-desc">Evite a árvore e aprenda as coordenadas enquanto joga!</p>
+        <div class="game-layout">
+          <div class="game-hud neo-card">
+            <div class="hud-item">
+              <span class="hud-label">🦕 Dino X:</span>
+              <span class="hud-value" id="game-dino-x">-210</span>
+            </div>
+            <div class="hud-item">
+              <span class="hud-label">🦕 Dino Y:</span>
+              <span class="hud-value" id="game-dino-y">0</span>
+            </div>
+            <div class="hud-item">
+              <span class="hud-label">🌲 Árvore X:</span>
+              <span class="hud-value" id="game-tree-x">240</span>
+            </div>
+            <div class="hud-item hud-score">
+              <span class="hud-label">⭐ Pontos:</span>
+              <span class="hud-value" id="game-score">0</span>
+            </div>
+          </div>
+          <div class="canvas-container neo-card game-canvas-wrap">
+            <canvas id="game-canvas"></canvas>
+            <div id="game-overlay" class="game-overlay">
+              <p>Pressione <strong>Espaço</strong> ou toque para pular!</p>
+              <button id="btn-game-start" class="neo-btn neo-btn-accent neo-btn-lg">▶ Jogar</button>
+            </div>
+            <div id="game-over-overlay" class="game-overlay" style="display:none;">
+              <h3>💥 Game Over!</h3>
+              <p>Pontuação: <span id="game-final-score">0</span></p>
+              <button id="btn-game-restart" class="neo-btn neo-btn-accent neo-btn-lg">↺ Jogar Novamente</button>
+            </div>
+          </div>
+          <div class="game-instructions neo-card">
+            <p>⌨️ <strong>Espaço</strong> ou <strong>Toque na tela</strong> = Pular</p>
+            <p>📊 Observe como as coordenadas mudam durante o jogo!</p>
+          </div>
+        </div>
+        <button class="neo-btn section-next" onclick="scrollToSection('summary')">
+          Próximo: Resumo Final →
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 11: SUMMARY ==================== -->
+    <section id="summary" class="section">
+      <div class="section-container summary-container">
+        <div class="section-header">
+          <span class="section-number neo-tag">10</span>
+          <h2>🏆 Resumo Final</h2>
+        </div>
+        <div class="summary-cards">
+          <div class="summary-card neo-card" style="--accent: var(--pink)">
+            <div class="summary-icon">↔</div>
+            <h3>X = Esquerda e Direita</h3>
+            <p>O eixo X controla o movimento horizontal dos objetos.</p>
+          </div>
+          <div class="summary-card neo-card" style="--accent: var(--blue)">
+            <div class="summary-icon">↕</div>
+            <h3>Y = Cima e Baixo</h3>
+            <p>O eixo Y controla o movimento vertical dos objetos.</p>
+          </div>
+          <div class="summary-card neo-card" style="--accent: var(--green)">
+            <div class="summary-icon">📍</div>
+            <h3>(X, Y) = Posição</h3>
+            <p>Todo objeto tem uma posição definida por suas coordenadas X e Y.</p>
+          </div>
+        </div>
+        <div class="summary-message neo-card">
+          <div class="summary-dino">🦕</div>
+          <h3>Parabéns!</h3>
+          <p class="text-lg">Agora você já sabe como o Dino e a árvore usam o <strong>Plano Cartesiano</strong> para se movimentar!</p>
+          <div class="confetti-container" id="confetti-container"></div>
+        </div>
+        <button class="neo-btn neo-btn-lg" onclick="scrollToSection('hero')">
+          🔄 Voltar ao Início
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="neo-footer">
+    <p>Feito com 💚 para aprender Plano Cartesiano</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
